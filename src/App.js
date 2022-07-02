@@ -1,23 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import { Link, Route, Routes } from "react-router-dom";
+import "./App.css";
+import Header from "./components/Header";
+import Carts from "./pages/Carts";
+import Home from "./pages/Home";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { pizzasActions } from "./store/Pizzas/actions";
 
 function App() {
+  const dispatch = useDispatch();
+  const {items} = useSelector((state) => state.pizzasReducer)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div className="wrapper">
+        <Header />
+        <div className="content">
+          <Routes>
+            <Route path="/" element={<Home items = {items}/>} />
+            <Route path="carts" element={<Carts />} />
+          </Routes>
+        </div>
+      </div>
     </div>
   );
 }
